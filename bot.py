@@ -13,8 +13,21 @@ class Bot:
 
     def get_posts_urls(self, profile):
         self.browser.get(self.base_url + profile)
-        self.browser.find_element(
-            By.XPATH, "//div[@aria-label='Cerrar']").click()
+        # self.browser.find_element(
+        #    By.XPATH, "//div[@aria-label='Cerrar']").click()
+
+        urls = set()
+
+        while True:
+            links = self.browser.find_elements(
+                By.XPATH, '//a[contains(@href,"https://www.facebook.com/CFKArgentina/posts/") and @role = "link"]')
+
+            for link in links:
+                url = link.get_attribute('href')
+                urls.add(url)
+
+            print(urls)
+
         input()
 
 
